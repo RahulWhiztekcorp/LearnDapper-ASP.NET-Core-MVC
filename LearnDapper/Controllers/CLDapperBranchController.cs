@@ -1,24 +1,21 @@
-﻿using DAL;
-using LearnDapper.Models;
-using LearnDapper.Models;
+﻿using LearnDapper.Models;
 using LearnDapper.Repository.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearnDapper.Controllers
 {
-    public class CLDapperBranchController : Controller
+    public class BBranchController : Controller
     {
-        private readonly IBranchRepository _branchRepository;
-        public CLDapperBranchController(IBranchRepository branchRepository)
+        public readonly IBranchRepository _branchRepository;
+        public BBranchController(IBranchRepository branchRepository)
         {
             _branchRepository = branchRepository;
         }
         // GET: BBranchController
         public async Task<IActionResult> Index()
         {
-            DapperServices dapperServices = new DapperServices();
-            return View(await dapperServices.ReadAllAsync());
+            return View(await _branchRepository.GetAllAsync());
         }
         // GET: BBranchController/Details/5
         public async Task<IActionResult> Details(int id)

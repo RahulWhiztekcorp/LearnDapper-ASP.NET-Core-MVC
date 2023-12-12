@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using DAL;
+using Dapper;
 using LearnDapper.Dapper.Interface;
 using LearnDapper.Models;
 using LearnDapper.Repository.Interface;
@@ -16,12 +17,15 @@ namespace LearnDapper.Repository.Implimentaions
 
         public async Task<IEnumerable<Branch>> GetAllAsync()
         {
-            var query = "SELECT * FROM " + typeof(Branch).Name;
-            using (var connection = _context.CreateConnection())
-            {
-                var result = await connection.QueryAsync<Branch>(query);
-                return result.ToList();
-            }
+            //var query = "SELECT * FROM " + typeof(Branch).Name;
+            //using (var connection = _context.CreateConnection())
+            //{
+            //    var result = await connection.QueryAsync<Branch>(query);
+            //    return result.ToList();
+            //}
+            DapperServices dapperServices = new DapperServices();
+           var data = await dapperServices.ReadAllAsync();
+            return (IEnumerable<Branch>)data;
         }
         public async Task<Branch> GetByIdAsync(Int64 id)
         {
